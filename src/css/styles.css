@@ -1,0 +1,101 @@
+body {
+  font-family: "Roboto", sans-serif;
+  background: #e5e5e5;
+  /*
+    font-family: 'Righteous', cursive;
+    */
+}
+
+button {
+  background: #cbcbcb;
+  border-radius: 50px;
+  border: none;
+  color: #fff;
+  width: 364px;
+  height: 61px;
+  font-size: 20px;
+  padding: 0 70px;
+}
+
+ul {
+  display: flex;
+  overflow: hidden;
+}
+
+li {
+  background: #fff;
+  width: 172px;
+  height: 216px;
+  border-radius: 9px;
+  margin-bottom: 27px;
+  margin-right: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 13px 14px;
+}
+
+li img {
+  height: 87px;
+  width: 144px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+li p:nth-child(3) {
+  font-weight: 300;
+  font-size: 15px;
+  color: #a6a6a6;
+}
+
+li p:nth-child(4) {
+  font-weight: 400;
+}
+
+.topBar {
+  background: #cf2b2b;
+  color: #fff;
+  width: 100%;
+  height: 92px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 21px;
+}
+
+.topBar p:first-child {
+  font-family: "Righteous", cursive;
+  font-size: 44px;
+}
+
+.content {
+  margin-top: calc(92px + 31px);
+  margin-bottom: 92px;
+  padding-left: 9px;
+}
+
+.content > p {
+  font-family: "Righteous", cursive;
+  font-size: 26px;
+  margin-bottom: 17px;
+}
+
+.mealOptions {
+}
+
+.bottomBar {
+  background: #fff;
+  width: 100%;
+  height: 92px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+}
