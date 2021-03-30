@@ -19,7 +19,7 @@ button {
 
 ul {
   display: flex;
-  overflow: hidden;
+  overflow-x: scroll;
 }
 
 li {
@@ -85,9 +85,6 @@ li p:nth-child(4) {
   font-family: "Righteous", cursive;
   font-size: 26px;
   margin-bottom: 17px;
-}
-
-.mealOptions {
 }
 
 .bottomBar {
