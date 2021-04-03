@@ -100,13 +100,18 @@ ion-icon {
   bottom: 0;
 }
 
-.bottomBar button {
+.bottomBarButton {
   background: #cbcbcb;
   color: #fff;
   width: 364px;
   height: 61px;
   font-size: 20px;
   padding: 0 70px;
+}
+
+.enabledButton {
+  background-color: #50d074;
+  font-weight: 700;
 }
 
 .confimationScreen {

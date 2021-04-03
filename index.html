@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -111,7 +111,7 @@
         </ul>
     </div>
     <div class="bottomBar">
-        <Button onclick=console.log("teste") >Selecione os 3 itens para fechar o pedido</Button>
+        <Button class="bottomBarButton" onclick="callConfirmationScreen()" disabled>Selecione os 3 itens para fechar o pedido</Button>
     </div>
     <div class="confimationScreen hiddingClass">
         <div class="confirmationModal">
@@ -132,8 +132,8 @@
                 <p>TOTAL</p>
                 <p>R$ Valor</p>
             </span>
-            <button onclick=console.log("teste")>Tudo certo, pode pedir!</button>
-            <button onclick=console.log("teste")>Cancelar</button>
+            <button onclick="console.log('Confirmar pedido')">Tudo certo, pode pedir!</button>
+            <button onclick="cancelModalAction()">Cancelar</button>
         </div>
     </div>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
