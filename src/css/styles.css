@@ -26,8 +26,12 @@ li {
   flex-direction: column;
   justify-content: space-evenly;
   padding: 8px 9px;
-  border: 5px solid #fff;
+  border: 5px solid #50d074;
   position: relative;
+}
+
+.whiteBorder {
+  border-color: #fff;
 }
 
 li img {
@@ -178,8 +182,4 @@ ion-icon {
 
 .hiddingClass {
   display: none;
-}
-
-.greenBorder {
-  border-color: #50d074;
 }

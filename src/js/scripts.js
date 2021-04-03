@@ -1,56 +1,9 @@
 let selectedCounter = 0;
-//let selectedsByRow = ["Não há selecionado", "Não há selecionado", "Não há selecionado"];
+let selectedMeal = "None";
+let selectedDrink = "None";
+let selectedDessert = "None";
 
-
-function colorBorder(options, position) {
-    if (options.classList.contains("greenBorder") && options.classList.contains(position)) {
-        options.classList.remove("greenBorder");
-        selectedCounter--;
-        verifyButtonChange(position);
-        return;
-    }
-
-    if (options.classList.contains("greenBorder") ) {
-        options.classList.remove("greenBorder");
-        selectedCounter--;
-    }
-
-    if (options.classList.contains(position)) {
-        options.classList.add("greenBorder");
-        selectedCounter++;
-        verifyButtonChange(position);
-    }
-
-    
-}
-
-function showCheckmark(options, position) {
-    if (!options.classList.contains("hiddingClass") && options.classList.contains(position)) {
-        options.classList.add("hiddingClass");
-        return;
-    }
-
-    if (!options.classList.contains("hiddingClass") ) {
-        options.classList.add("hiddingClass");
-    }
-
-    if (options.classList.contains(position)) {
-        options.classList.remove("hiddingClass");
-    }
-}
-
-function selectionManager(itens, icons, position) {
-    [].forEach.call(itens, (e)=>{colorBorder(e, position)});
-    [].forEach.call(icons, (e)=>{showCheckmark(e, position)});
-}
-
-function selectUnicOption(position, rowClass) {
-    const itemRow = document.querySelectorAll(rowClass);
-    const iconRow = document.querySelectorAll(rowClass + " ion-icon");
-    selectionManager(itemRow, iconRow, position);
-}
-
-function verifyButtonChange(position){
+function verifyButtonChange(){
     const orderButton = document.querySelector(".bottomBarButton");
     if (selectedCounter === 3) {
         orderButton.disabled = false;
@@ -66,7 +19,77 @@ function verifyButtonChange(position){
     }
 }
 
+function selectionManager(oldSelection, newSelection) {
+    if (oldSelection == newSelection) {
+        //TO-DO remover seleção
+        console.log("tenho que implementar o reset da variável");
+        return;
+    }
+    
+    if (oldSelection != "Subscribe here" && oldSelection != "None") {
+        oldSelection[0].classList.add("whiteBorder");
+        oldSelection[1].classList.add("hiddingClass");
+        selectedCounter--;
+        verifyButtonChange();
+    }
+
+    if (newSelection[0].classList.contains("whiteBorder")){
+        newSelection[0].classList.remove("whiteBorder")
+        newSelection[1].classList.remove("hiddingClass");
+        selectedCounter++;
+        verifyButtonChange();
+    } 
+}
+
+function infoManager(rowClass, item, icon) {
+    const itemName = item.querySelector("p").innerHTML;
+    const itemPrice = item.querySelector("span").innerHTML;
+    const newSelection = [item, icon, itemName, itemPrice];
+    let olderSelection = "Subscribe here"
+
+    switch (rowClass) {
+        case '.mealOptions':
+            olderSelection = selectedMeal;
+            selectedMeal = newSelection;
+            break;
+        case '.drinkOptions':
+            olderSelection = selectedDrink;
+            selectedDrink = newSelection;
+            break;
+        case '.dessertOptions':
+            olderSelection = selectedDessert;
+            selectedDessert = newSelection;
+            break;
+        default:
+            alert("Type of options not found");
+    }
+    return [olderSelection, newSelection];
+}
+
+function selectUnicOption(rowClass, position) {
+    const item = document.querySelector(rowClass + position);
+    const itemIcon = item.querySelector("ion-icon");
+    let information = "Empty";
+    
+    information = infoManager(rowClass, item, itemIcon);     
+    selectionManager(information[0], information[1]);
+}
+
 function callConfirmationScreen() {
+    const totalPrice = 
+        Number(selectedMeal[3].replace(',', '.')) + 
+        Number(selectedDrink[3].replace(',', '.')) +
+        Number(selectedDessert[3].replace(',', '.'));
+
+    document.querySelector(".meal p:first-child").innerHTML = selectedMeal[2];
+    document.querySelector(".meal p:last-child").innerHTML = selectedMeal[3];
+    document.querySelector(".drink p:first-child").innerHTML = selectedDrink[2];
+    document.querySelector(".drink p:last-child").innerHTML = selectedDrink[3];
+    document.querySelector(".dessert p:first-child").innerHTML = selectedDessert[2];
+    document.querySelector(".dessert p:last-child").innerHTML = selectedDessert[3];
+
+    document.querySelector(".total p:last-child").innerHTML = "R$ " + (totalPrice.toFixed(2)).toString().replace('.', ',');
+
     document.querySelector(".confimationScreen").classList.remove("hiddingClass");
 }
 
