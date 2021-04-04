@@ -111,7 +111,7 @@
         </ul>
     </div>
     <div class="bottomBar">
-        <Button class="bottomBarButton" onclick="callConfirmationScreen()" disabled>Selecione os 3 itens para fechar o pedido</Button>
+        <Button class="bottomBarButton" onclick="resquestClientInfo()" disabled>Selecione os 3 itens para fechar o pedido</Button>
     </div>
     <div class="confimationScreen hiddingClass">
         <div class="confirmationModal">
@@ -132,7 +132,7 @@
                 <p>TOTAL</p>
                 <p>R$ Valor</p>
             </span>
-            <button onclick="console.log('Confirmar pedido')">Tudo certo, pode pedir!</button>
+            <button onclick="sentOrder()">Tudo certo, pode pedir!</button>
             <button onclick="cancelModalAction()">Cancelar</button>
         </div>
     </div>

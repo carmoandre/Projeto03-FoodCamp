@@ -2,6 +2,8 @@ let selectedCounter = 0;
 let selectedMeal = "None";
 let selectedDrink = "None";
 let selectedDessert = "None";
+let orderPrice = "None"
+let personalClientInfo = "None";
 
 function verifyButtonChange(){
     const orderButton = document.querySelector(".bottomBarButton");
@@ -75,6 +77,13 @@ function selectUnicOption(rowClass, position) {
     selectionManager(information[0], information[1]);
 }
 
+function resquestClientInfo() {
+    const clientName = prompt("Qual seu nome?");
+    const clientAdress = prompt("Qual sue endereço?");
+    personalClientInfo = [clientName, clientAdress];
+    callConfirmationScreen();
+}
+
 function callConfirmationScreen() {
     const totalPrice = 
         Number(selectedMeal[3].replace(',', '.')) + 
@@ -88,7 +97,9 @@ function callConfirmationScreen() {
     document.querySelector(".dessert p:first-child").innerHTML = selectedDessert[2];
     document.querySelector(".dessert p:last-child").innerHTML = selectedDessert[3];
 
-    document.querySelector(".total p:last-child").innerHTML = "R$ " + (totalPrice.toFixed(2)).toString().replace('.', ',');
+    orderPrice = "R$ " + (totalPrice.toFixed(2)).toString().replace('.', ',');
+
+    document.querySelector(".total p:last-child").innerHTML = orderPrice;
 
     document.querySelector(".confimationScreen").classList.remove("hiddingClass");
 }
@@ -96,3 +107,31 @@ function callConfirmationScreen() {
 function cancelModalAction() {
     document.querySelector(".confimationScreen").classList.add("hiddingClass");
 }
+
+
+function buildOrderEncodedText() {
+    const uri = "Olá, gostaria de fazer o pedido:<br>- Prato: " + selectedMeal[2] + "<br>- Bebida: " + selectedDrink[2] + "<br>- Sobremesa:" + selectedDessert[2] + "<br><br>Total: " + orderPrice + "<br><br>Nome: " + personalClientInfo[0] + "<br>Endereço: " + personalClientInfo[1];
+
+    const encodedURI = encodeURIComponent(uri);
+    const decodedURI = decodeURIComponent(encodedURI);
+    console.log("Encoded URI:");
+    console.log(encodedURI);
+    console.log("Encoded URI:");
+    console.log(decodedURI);
+    
+    return encodedURI;
+}
+
+
+function buildOrderLink() {
+    const whatsappLink = 'https://wa.me/5531999764726?text=' + buildOrderEncodedText();
+    console.log(whatsappLink);
+    return whatsappLink;
+}
+
+function sentOrder() {
+    window.location.href = buildOrderLink();
+}
+
+
+
