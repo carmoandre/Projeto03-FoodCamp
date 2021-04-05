@@ -22,6 +22,7 @@ function verifyButtonChange(){
 }
 
 function selectionManager(oldSelection, newSelection) {
+    console.log(oldSelection[2] === newSelection[2]);
     if (oldSelection == newSelection) {
         //TO-DO remover seleção
         console.log("tenho que implementar o reset da variável");
@@ -84,6 +85,19 @@ function resquestClientInfo() {
     callConfirmationScreen();
 }
 
+function buildOrderEncodedText() {
+    const uri = "Olá, gostaria de fazer o pedido:\n- Prato: " + selectedMeal[2] + "\n- Bebida: " + selectedDrink[2] + "\n- Sobremesa: " + selectedDessert[2] + "\n\nTotal: " + orderPrice + "\n\nNome: " + personalClientInfo[0] + "\nEndereço: " + personalClientInfo[1];
+    const encodedURI = encodeURIComponent(uri);
+   
+    return encodedURI;
+}
+
+
+function buildOrderLink() {
+    document.querySelector("a").href = 'https://wa.me/5531991600044?text=' + buildOrderEncodedText();  
+}
+
+
 function callConfirmationScreen() {
     const totalPrice = 
         Number(selectedMeal[3].replace(',', '.')) + 
@@ -102,6 +116,8 @@ function callConfirmationScreen() {
     document.querySelector(".total p:last-child").innerHTML = orderPrice;
 
     document.querySelector(".confimationScreen").classList.remove("hiddingClass");
+
+    buildOrderLink();
 }
 
 function cancelModalAction() {
@@ -109,29 +125,9 @@ function cancelModalAction() {
 }
 
 
-function buildOrderEncodedText() {
-    const uri = "Olá, gostaria de fazer o pedido:<br>- Prato: " + selectedMeal[2] + "<br>- Bebida: " + selectedDrink[2] + "<br>- Sobremesa:" + selectedDessert[2] + "<br><br>Total: " + orderPrice + "<br><br>Nome: " + personalClientInfo[0] + "<br>Endereço: " + personalClientInfo[1];
-
-    const encodedURI = encodeURIComponent(uri);
-    const decodedURI = decodeURIComponent(encodedURI);
-    console.log("Encoded URI:");
-    console.log(encodedURI);
-    console.log("Encoded URI:");
-    console.log(decodedURI);
-    
-    return encodedURI;
-}
 
 
-function buildOrderLink() {
-    const whatsappLink = 'https://wa.me/5531999764726?text=' + buildOrderEncodedText();
-    console.log(whatsappLink);
-    return whatsappLink;
-}
 
-function sentOrder() {
-    window.location.href = buildOrderLink();
-}
 
 
 
