@@ -21,19 +21,35 @@ function verifyButtonChange(){
     }
 }
 
+function removeSelection(oldSelection) {
+    oldSelection[0].classList.add("whiteBorder");
+    oldSelection[1].classList.add("hiddingClass");
+    selectedCounter--;
+    verifyButtonChange();
+}
+
 function selectionManager(oldSelection, newSelection) {
-    console.log(oldSelection[2] === newSelection[2]);
-    if (oldSelection == newSelection) {
-        //TO-DO remover seleção
-        console.log("tenho que implementar o reset da variável");
+    if (oldSelection[2] == newSelection[2]) {
+        const rowClass = oldSelection[0].classList[0];
+        removeSelection(oldSelection);
+        switch (rowClass) {
+            case 'mealOptions':
+                selectedMeal = "None";
+                break;
+            case 'drinkOptions':
+                selectedDrink = "None";
+                break;
+            case 'dessertOptions':
+                selectedDessert = "None";
+                break;
+            default:
+                alert("RESET ERROR:Type of options not found");
+        }
         return;
     }
     
-    if (oldSelection != "Subscribe here" && oldSelection != "None") {
-        oldSelection[0].classList.add("whiteBorder");
-        oldSelection[1].classList.add("hiddingClass");
-        selectedCounter--;
-        verifyButtonChange();
+    if (oldSelection != "None") {
+        removeSelection(oldSelection);
     }
 
     if (newSelection[0].classList.contains("whiteBorder")){
@@ -44,29 +60,35 @@ function selectionManager(oldSelection, newSelection) {
     } 
 }
 
+function verifyEqualsAndReser(oldSelection, newSelection, toReset) {
+    oldSelection[2] === newSelection[2];
+    toReset = "None";
+}
+
 function infoManager(rowClass, item, icon) {
     const itemName = item.querySelector("p").innerHTML;
     const itemPrice = item.querySelector("span").innerHTML;
-    const newSelection = [item, icon, itemName, itemPrice];
-    let olderSelection = "Subscribe here"
+    const newSelection = [item, icon, itemName, itemPrice,];
+    let oldSelection = "Subscribe here";
 
     switch (rowClass) {
         case '.mealOptions':
-            olderSelection = selectedMeal;
+            oldSelection = selectedMeal;
             selectedMeal = newSelection;
             break;
         case '.drinkOptions':
-            olderSelection = selectedDrink;
+            oldSelection = selectedDrink;
             selectedDrink = newSelection;
             break;
         case '.dessertOptions':
-            olderSelection = selectedDessert;
+            oldSelection = selectedDessert;
             selectedDessert = newSelection;
             break;
         default:
-            alert("Type of options not found");
+            alert("SET ERROR: Type of options not found");
     }
-    return [olderSelection, newSelection];
+
+    return [oldSelection, newSelection];
 }
 
 function selectUnicOption(rowClass, position) {
@@ -92,11 +114,9 @@ function buildOrderEncodedText() {
     return encodedURI;
 }
 
-
 function buildOrderLink() {
     document.querySelector("a").href = 'https://wa.me/5531991600044?text=' + buildOrderEncodedText();  
 }
-
 
 function callConfirmationScreen() {
     const totalPrice = 
@@ -123,11 +143,3 @@ function callConfirmationScreen() {
 function cancelModalAction() {
     document.querySelector(".confimationScreen").classList.add("hiddingClass");
 }
-
-
-
-
-
-
-
-
