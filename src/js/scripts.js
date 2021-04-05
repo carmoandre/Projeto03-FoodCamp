@@ -5,6 +5,32 @@ let selectedDessert = "None";
 let orderPrice = "None"
 let personalClientInfo = "None";
 
+function infoManager(rowClass, item, icon) {
+    const itemName = item.querySelector("p").innerHTML;
+    const itemPrice = item.querySelector("span").innerHTML;
+    const newSelection = [item, icon, itemName, itemPrice,];
+    let oldSelection = "Subscribe here";
+
+    switch (rowClass) {
+        case '.mealOptions':
+            oldSelection = selectedMeal;
+            selectedMeal = newSelection;
+            break;
+        case '.drinkOptions':
+            oldSelection = selectedDrink;
+            selectedDrink = newSelection;
+            break;
+        case '.dessertOptions':
+            oldSelection = selectedDessert;
+            selectedDessert = newSelection;
+            break;
+        default:
+            alert("SET ERROR: Type of options not found");
+    }
+
+    return [oldSelection, newSelection];
+}
+
 function verifyButtonChange(){
     const orderButton = document.querySelector(".bottomBarButton");
     if (selectedCounter === 3) {
@@ -58,37 +84,6 @@ function selectionManager(oldSelection, newSelection) {
         selectedCounter++;
         verifyButtonChange();
     } 
-}
-
-function verifyEqualsAndReser(oldSelection, newSelection, toReset) {
-    oldSelection[2] === newSelection[2];
-    toReset = "None";
-}
-
-function infoManager(rowClass, item, icon) {
-    const itemName = item.querySelector("p").innerHTML;
-    const itemPrice = item.querySelector("span").innerHTML;
-    const newSelection = [item, icon, itemName, itemPrice,];
-    let oldSelection = "Subscribe here";
-
-    switch (rowClass) {
-        case '.mealOptions':
-            oldSelection = selectedMeal;
-            selectedMeal = newSelection;
-            break;
-        case '.drinkOptions':
-            oldSelection = selectedDrink;
-            selectedDrink = newSelection;
-            break;
-        case '.dessertOptions':
-            oldSelection = selectedDessert;
-            selectedDessert = newSelection;
-            break;
-        default:
-            alert("SET ERROR: Type of options not found");
-    }
-
-    return [oldSelection, newSelection];
 }
 
 function selectUnicOption(rowClass, position) {
